@@ -17,35 +17,27 @@ public class SquareMatrix {
     public int[][] getArr() {
         return arr;
     }
-    public int customSum(){
-        int i = diagonalMaxElIndex();
-        int min = arr[i][i];
-        int sum=0;
-        for(int[] array:arr){
-            for (int el: array){
-                if(el>min)sum+=el;
+    void xSwap(){
+        for (int i = 0; i <arr.length ; i++) {
+            for (int j = 0; j <arr.length ; j++) {
+                if(i==j||i==arr.length-j-1){
+                    arr[i][j]=0;
+                }else{
+                    if(j<arr.length-i-1){
+                        if(j>i){
+                            swapArrEl(arr.length-i-1,j,i,j);
+                        }else{
+                            swapArrEl(i,arr.length-1-j,i,j);
+                        }
+                    }
+                }
             }
         }
-        return sum;
     }
-    int diagonalMaxElIndex() {
-        int max = arr[0][0];
-        int index=0;
-        for(int i=1;i<arr.length;i++){
-            if (arr[i][i]>max) {
-                max = arr[i][i];
-                index=i;
-            }
-        }
-        return index;
-    }
-    public void diagonalSwap(){
-        int tmp;
-        for (int i = 0; i < arr.length; i++) {
-            tmp=arr[i][i];
-            arr[i][i]=arr[i][arr.length-i-1];
-            arr[i][arr.length-i-1]=tmp;
-        }
+    void swapArrEl(int el1y,int el1x,int el2y,int el2x){
+        int t = arr[el1y][el1x];
+        arr[el1y][el1x]=arr[el2y][el2x];
+        arr[el2y][el2x]=t;
     }
     @Override
     public String toString() {

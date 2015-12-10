@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.sql.DataSource;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -44,60 +45,34 @@ public class ApplicationServiceIntegrationTest {
         flyway.migrate();
     }
     @Test
-    public void testConcatStudentName3() throws Exception {
+    public void testDeleteIdNotFib() throws Exception {
         migrateToVersion("2");
         Date date = Date.valueOf("1970-01-01");
-        List<Student> list = new ArrayList<>();
-        list.add(new Student(3,"Eduard_3", "Andreev",date ,"AI111"));
-        list.add(new Student(4,"Sasha", "Andreev",date ,"AI111"));
-        list.add(new Student(6,"Eduard_3", "Andreev",date ,"AI111"));
-        list.add(new Student(7,"Sasha", "Andreev",date ,"AI111"));
+        List<Student> ans = new ArrayList<>(Arrays.asList(new Student[]{
+                new Student(0, "NAME", "LAST NAME", date, "AI111"),
+                new Student(1, "NAME", "LAST NAME", date, "AI111"),
+                new Student(2, "NAME", "LAST NAME", date, "AI111"),
+                new Student(3, "NAME", "LAST NAME", date, "AI111"),
+                new Student(5, "NAME", "LAST NAME", date, "AI111"),
+                new Student(8, "NAME", "LAST NAME", date, "AI111"),
+        }));
 
-        service.concatStudentName3();
-        assertEquals(list, repository.getAllStudents());
-    }
-    @Test
-    public void testConcatStudentName3NoMathes(){
-        migrateToVersion("21");
-        Date date = Date.valueOf("1970-01-01");
-        List<Student> list = new ArrayList<>();
-        list.add(new Student(3,"Sasha", "Andreev",date ,"AI111"));
-        list.add(new Student(4,"Sasha", "Andreev",date ,"AI111"));
-        service.concatStudentName3();
-        assertEquals(list, repository.getAllStudents());
-    }
-    @Test
-    public void testConcatUserName3EmptyData() throws Exception {
-        migrateToVersion("11");
-        service.concatStudentName3();
-        assertEquals(new ArrayList<Student>(), repository.getAllStudents());
-    }
 
+        service.deleteIdNotFib();
+        assertEquals(repository.getAllStudents(),ans);
+    }
     @Test
-    public void testGetAllStudentsWithRepeatedNames() throws Exception {
+    public void testGetStudentsWithName() throws Exception {
         migrateToVersion("3");
         Date date = Date.valueOf("1970-01-01");
-        List<Student> list = new ArrayList<>();
-        list.add(new Student(1,"Eduard", "Andreev",date ,"AI111"));
-        list.add(new Student(3,"Eduard", "Andreev",date ,"AI111"));
-        list.add(new Student(2,"Sasha", "Andreev",date ,"AI111"));
-        list.add(new Student(4,"Sasha", "Andreev",date ,"AI111"));
-        list.add(new Student(5,"Sasha", "Andreev",date ,"AI111"));
+        List<Student> ans = new ArrayList<>(Arrays.asList(new Student[]{
+                new Student(6, "ZNAME", "LAST NAME", date, "AI111"),
+                new Student(9, "ZNAME", "LAST NAME", date, "AI111")
+        }));
 
-        assertEquals(list, service.getAllStudentsWithRepeatedNames());
-    }
 
-    @Test
-    public void testGetAllStudentsWithRepeatedNamesNoRepeat() throws Exception {
-        migrateToVersion("31");
-        assertEquals(new ArrayList<Student>(), service.getAllStudentsWithRepeatedNames());
-    }
 
-    @Test
-    public void testGetAllStudentsWithRepeatedNamesEmptyList() throws Exception {
-        migrateToVersion("11");
-
-        assertEquals(new ArrayList<Student>(), service.getAllStudentsWithRepeatedNames());
+        assertEquals(service.getStudentsWithName("ZNAME"),ans);
     }
     @After
     public void releswDB(){

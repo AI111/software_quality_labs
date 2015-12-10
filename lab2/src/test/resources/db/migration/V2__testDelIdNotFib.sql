@@ -1,0 +1,11 @@
+DELETE  FROM student;
+INSERT INTO student (id,first_name,last_name,birthday,groupe) VALUES (0,'NAME','LAST NAME','1970-01-01','AI111');
+INSERT INTO student (id,first_name,last_name,birthday,groupe) VALUES (1,'NAME','LAST NAME','1970-01-01','AI111');
+INSERT INTO student (id,first_name,last_name,birthday,groupe) VALUES (2,'NAME','LAST NAME','1970-01-01','AI111');
+INSERT INTO student (id,first_name,last_name,birthday,groupe) VALUES (3,'NAME','LAST NAME','1970-01-01','AI111');
+INSERT INTO student (id,first_name,last_name,birthday,groupe) VALUES (4,'NAME','LAST NAME','1970-01-01','AI111');
+INSERT INTO student (id,first_name,last_name,birthday,groupe) VALUES (5,'NAME','LAST NAME','1970-01-01','AI111');
+INSERT INTO student (id,first_name,last_name,birthday,groupe) VALUES (6,'NAME','LAST NAME','1970-01-01','AI111');
+INSERT INTO student (id,first_name,last_name,birthday,groupe) VALUES (7,'NAME','LAST NAME','1970-01-01','AI111');
+INSERT INTO student (id,first_name,last_name,birthday,groupe) VALUES (8,'NAME','LAST NAME','1970-01-01','AI111');
+INSERT INTO student (id,first_name,last_name,birthday,groupe) VALUES (9,'NAME','LAST NAME','1970-01-01','AI111');

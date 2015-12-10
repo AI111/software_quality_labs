@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 /**
  * Created by sasha on 02.10.15.
@@ -19,38 +20,35 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Autowired
     StudentRepository repository;
 
-    @Transactional
-    public int concatStudentName3() {
-        int count = 0;
-        List<Student> list = repository.getAllStudents();
-        for (Student student : list) {
-            if (student.getName().startsWith("E")) {
-                student.setName(student.getName() + "_3");
-                repository.editStudent(student);
-                count++;
-            }
+
+    List fibonachiList(int n){
+        LinkedList<Integer> ans = new LinkedList(Arrays.asList(new Integer[]{0,1,1}));
+        int a = 1, b = 1;
+        int fib = 2;
+        while (n > fib) {
+            fib = a + b;
+            a = b;
+            b = fib;
+            ans.add(fib);
         }
-        return count;
+        return ans;
+    }
+    @Transactional
+    @Override
+    public void deleteIdNotFib() {
+        List<Student> students = repository.getAllStudents();
+        if(students.size()>0) {
+            int max = Collections.max(students, (o1, o2) -> o1.getId() - o2.getId()).getId();
+            List<Integer> fib = fibonachiList(max);
+            students.stream().filter(student -> Collections.binarySearch(fib, student.getId()) < 0)
+                    .forEach(student1 -> repository.removeStudent(student1));
+        }
     }
 
     @Transactional
-    public List<Student> getAllStudentsWithRepeatedNames() {
-        List<Student> answer = new LinkedList<>();
-        List<Student> list = repository.getAllStudents();
-        Map<String, LinkedList<Student>> studentMap = new LinkedHashMap<>();
-        for (Student student : list) {
-            if (studentMap.containsKey(student.getName())) {
-                studentMap.get(student.getName()).add(student);
-            } else {
-                studentMap.put(student.getName(), new LinkedList<>(Arrays.asList(new Student[]{student})));
-            }
-        }
-        studentMap.forEach(new BiConsumer<String, LinkedList<Student>>() {
-            @Override
-            public void accept(String s, LinkedList<Student> students) {
-                if (students.size() > 1) answer.addAll(students);
-            }
-        });
-        return answer;
+    @Override
+    public List<Student> getStudentsWithName(String name) {
+
+        return repository.getAllStudents().stream().filter(student -> student.getName().equals(name)).collect(Collectors.toList());
     }
 }

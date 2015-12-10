@@ -11,61 +11,60 @@ import java.util.Arrays;
  */
 public class SquareMatrixTest {
     @Test
-    public void testCustomSum() throws Exception {
-        int[][] arr=
-                {{1,2,3},
-                        {4,5,6},
-                        {7,8,5}};
+    public void testxSwap() throws Exception {
+        int[][] arr={{1,2,3},{1,2,3},{3,5,9}};
+        int[][] ans={{0,5,0},{3,0,1},{0,2,0}};
+
         SquareMatrix matrix = new SquareMatrix(arr);
-        int ans =matrix.customSum();
-        assertEquals(21,ans);
+        matrix.xSwap();
+        assertArrayEquals(matrix.getArr(),ans);
     }
     @Test
-    public void testCustomSumEmptyArr() throws Exception {
-        int[][] arr= {{5}};
+    public void testSwapArrEl()throws Exception{
+        int[][] arr={
+                {1,2,3},
+                {1,2,3},
+                {3,5,9}};
+
+        int[][] ans={
+                {1,2,3},
+                {1,9,3},
+                {3,5,2}};
+
         SquareMatrix matrix = new SquareMatrix(arr);
-        int ans =matrix.customSum();
-        assertEquals(0,ans);
+        matrix.swapArrEl(1,1,2,2);
+        //matrix.swapArrEl(1,0,1,2);
+
+        assertArrayEquals(matrix.getArr(),ans);
     }
     @Test
-    public void testDiagonalMaxElIndex() throws Exception {
-        int[][] arr=
-                {{1,2,3},
-                        {4,5,6},
-                        {7,8,5}};
+    public void testxSwap5() throws Exception {
+        int[][] arr={   {1, 2,  3,  4,  5},
+                {7, 8,  9,  10, 11},
+                {13,14, 15, 16, 17},
+                {18,19, 20, 21, 22},
+                {23,24, 25, 26, 27}};
+        int[][] ans={   {0, 24, 25, 26,  0},
+                {11,0,  20,  0,  7},
+                {17,16, 0,  14, 13},
+                {22, 0, 9,  0,  18},
+                {0, 2,  3,  4, 0 }};
+
         SquareMatrix matrix = new SquareMatrix(arr);
-        int ans =matrix.diagonalMaxElIndex();
-        assertEquals(1,ans);
+        matrix.xSwap();
+        assertArrayEquals(matrix.getArr(),ans);
     }
     @Test
-    public void testDiagonalMaxElIndexEmptyArr() throws Exception {
-        int[][] arr= {{100}};
+    public void testxSwapOneEl() throws Exception {
+        int[][] arr={{1}};
+        int[][] ans={{0}};
+
         SquareMatrix matrix = new SquareMatrix(arr);
-        int ans =matrix.diagonalMaxElIndex();
-        assertEquals(0,ans);
+        matrix.xSwap();
+        assertArrayEquals(matrix.getArr(),ans);
     }
-    @Test
-    public void testDiagonalSwap() throws Exception {
-        int[][] arr=
-                {{1,2,3},
-                        {4,5,6},
-                        {7,8,9}};
-        int[][] ans=
-                {{3,2,1},
-                        {4,5,6},
-                        {9,8,7}};
-        SquareMatrix matrix = new SquareMatrix(arr);
-        matrix.diagonalSwap();
-        assertArrayEquals(matrix.getArr(), ans);
-    }
-    @Test
-    public void testDiagonalSwapSingeArr() throws Exception {
-        int[][] arr=
-                {{777}};
-        SquareMatrix matrix = new SquareMatrix(arr);
-        matrix.diagonalSwap();
-        assertArrayEquals(matrix.getArr(), arr);
-    }
+
+
     @Test(expected = ArrayNotSquareExeption.class)
     public void testIsMatSquare() throws Exception {
         int[][] arr={{1,2},{1,2,3}};

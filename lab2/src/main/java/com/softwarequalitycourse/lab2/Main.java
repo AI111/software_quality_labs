@@ -16,9 +16,9 @@ public class Main {
         ApplicationService service = context.getBean(ApplicationService.class);
         StudentRepository repository = context.getBean(StudentRepository.class);
         System.out.println("concat _3");
-        service.concatStudentName3();
-        System.out.println(repository.getAllStudents());
-        System.out.println("repeated names");
-        System.out.println(service.getAllStudentsWithRepeatedNames());
+//        service.concatStudentName3();
+//        System.out.println(repository.getAllStudents());
+//        System.out.println("repeated names");
+//        System.out.println(service.getAllStudentsWithRepeatedNames());
     }
 }
