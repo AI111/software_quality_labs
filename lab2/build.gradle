@@ -20,13 +20,20 @@ dependencies {
 
     testCompile 'org.springframework:spring-test:4.2.1.RELEASE'
 
-    compile 'org.springframework.data:spring-data-jpa:1.9.1.RELEASE'
-    compile 'org.eclipse.persistence:org.eclipse.persistence.jpa:2.6.1'
     compile 'org.springframework:spring-context:4.2.1.RELEASE'
-    compile 'org.springframework:spring-jdbc:4.2.1.RELEASE'
+
     compile 'mysql:mysql-connector-java:5.1.34'
     compile 'commons-dbcp:commons-dbcp:1.4'
     compile 'org.slf4j:slf4j-log4j12:1.7.12'
+
+    compile 'org.springframework:spring-tx:4.2.3.RELEASE'
+    compile 'org.springframework:spring-core:4.2.3.RELEASE'
+    compile 'javassist:javassist:3.12.1.GA'
+
+    compile 'org.hibernate:hibernate-core:4.3.9.Final'
+    compile 'org.springframework:spring-orm:4.1.6.RELEASE'
+    compile 'org.apache.tomcat:tomcat-dbcp:7.0.55'
+
 }
 
 test {

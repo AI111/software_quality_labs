@@ -1,7 +1,7 @@
 package com.softwarequalitycourse.lab2.application;
 
 
-import com.softwarequalitycourse.lab2.domain.Student;
+import com.softwarequalitycourse.lab2.domain.Item;
 
 import java.util.List;
 
@@ -10,7 +10,8 @@ import java.util.List;
  */
 public interface ApplicationService {
 
-    void deleteIdNotFib();
-    List<Student> getStudentsWithName(String name);
+    List<Item> getEvenIdItems();
+    List<Item> getItemsWithName(String name);
+
 
 }

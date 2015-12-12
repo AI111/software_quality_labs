@@ -3,8 +3,8 @@ package com.softwarequalitycourse.lab2;
 
 import com.softwarequalitycourse.lab2.application.ApplicationService;
 import com.softwarequalitycourse.lab2.config.JavaConfig;
-import com.softwarequalitycourse.lab2.domain.Student;
-import com.softwarequalitycourse.lab2.domain.StudentRepository;
+import com.softwarequalitycourse.lab2.domain.Item;
+import com.softwarequalitycourse.lab2.domain.ItemRepository;
 import org.flywaydb.core.Flyway;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -32,7 +32,7 @@ import static org.junit.Assert.assertEquals;
 public class ApplicationServiceIntegrationTest {
     private static Flyway flyway;
     @Autowired
-    StudentRepository repository;
+    ItemRepository repository;
     @Autowired
     ApplicationService service;
     @BeforeClass
@@ -45,34 +45,30 @@ public class ApplicationServiceIntegrationTest {
         flyway.migrate();
     }
     @Test
-    public void testDeleteIdNotFib() throws Exception {
+    public void testGetEvenIdItems() throws Exception {
         migrateToVersion("2");
-        Date date = Date.valueOf("1970-01-01");
-        List<Student> ans = new ArrayList<>(Arrays.asList(new Student[]{
-                new Student(0, "NAME", "LAST NAME", date, "AI111"),
-                new Student(1, "NAME", "LAST NAME", date, "AI111"),
-                new Student(2, "NAME", "LAST NAME", date, "AI111"),
-                new Student(3, "NAME", "LAST NAME", date, "AI111"),
-                new Student(5, "NAME", "LAST NAME", date, "AI111"),
-                new Student(8, "NAME", "LAST NAME", date, "AI111"),
+
+        List<Item> req = new ArrayList<>(Arrays.asList(new Item[]{
+                new Item(0, "name", "description",0.99),
+                new Item(2, "name", "description",0.99),
+                new Item(4, "name", "description",0.99),
+                new Item(6, "name", "description",0.99),
+                new Item(8, "name", "description",0.99)
         }));
 
-
-        service.deleteIdNotFib();
-        assertEquals(repository.getAllStudents(),ans);
+        assertEquals(service.getEvenIdItems(),req);
     }
     @Test
-    public void testGetStudentsWithName() throws Exception {
+    public void testGetItemsWithName() throws Exception {
         migrateToVersion("3");
-        Date date = Date.valueOf("1970-01-01");
-        List<Student> ans = new ArrayList<>(Arrays.asList(new Student[]{
-                new Student(6, "ZNAME", "LAST NAME", date, "AI111"),
-                new Student(9, "ZNAME", "LAST NAME", date, "AI111")
+        List<Item> ans = new ArrayList<>(Arrays.asList(new Item[]{
+                new Item(6, "name", "description",0.99),
+                new Item(9, "name", "description",0.99)
         }));
 
 
 
-        assertEquals(service.getStudentsWithName("ZNAME"),ans);
+        assertEquals(service.getItemsWithName("name"),ans);
     }
     @After
     public void releswDB(){
